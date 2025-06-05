@@ -1,0 +1,44 @@
+grafana:
+  image:
+    registry: docker.io
+    repository: docker-hub/grafana/grafana
+    tag: "10.2.1"
+    pullPolicy: IfNotPresent
+
+  tolerations:
+    - key: dedicated
+      operator: Equal
+      value: monitoring
+
+  global:
+    pullSecrets: []
+  grafana_ini:
+    database:
+      wal: true
+    analytics:
+      check_for_updates: true
+    auth:
+      sigv4_auth_enabled: true
+    auth.azuread:
+      name: CP Azure AD
+      enabled: true
+      allow_sign_up: true
+      auto_login: true
+      scopes: openid email profile
+      auth_url: https://login.microsoftonline.com/<tenant_id>/oauth2/v2.0/authorize
+      token_url: https://login.microsoftonline.com/<tenant_id>/oauth2/v2.0/token
+    server:
+      root_url: https://<grafana_url>
+    users:
+      viewers_can_edit: true
+    dataproxy:
+      timeout: 300
+    security:
+      allow_embedding: true
+
+  nodeSelector:
+    app: monitoring
+
+  serviceAccount:
+    create: true
+    annotations:

@@ -1,0 +1,8 @@
+image: {{- toYaml .Values.grafana.image | nindent 2 }}
+tolerations:  {{- toYaml .Values.grafana.tolerations | nindent 2 }}
+global:  
+  pullSecrets: {{ .Values.grafana.global.pullSecrets }}
+grafana.ini: {{- toYaml .Values.grafana.grafana_ini | nindent 2 }}
+nodeSelector: {{- toYaml .Values.grafana.nodeSelector | nindent 2 }}
+serviceAccount:  {{- toYaml .Values.grafana.serviceAccount | nindent 2 }}
+adminPassword: {{ .Values.grafana_secrets.adminPassword }}

@@ -1,0 +1,42 @@
+helmDefaults:
+  createNamespace: true
+
+repositories:
+  - name: grafana
+    url: https://grafana.github.io/helm-charts
+
+environments:
+  dev:
+    values:
+      - ./values/{{ .Environment.Name  }}/custom-values.yaml
+      - ./values/{{ .Environment.Name  }}/grafana-values.yaml
+    # secrets:
+    #   - ./values/{{ .Environment.Name  }}/custom-secrets.yaml
+
+  prod:
+    values:
+      - ./values/{{ .Environment.Name  }}/custom-values.yaml
+      - ./values/{{ .Environment.Name  }}/grafana-values.yaml
+    # secrets:
+    #   - ./values/{{ .Environment.Name  }}/grafana-secrets.yaml
+---
+releases:
+  - name: custom-release
+    namespace: custom-namespace
+    chart: ../charts/custom-chart
+    version: 1.0.0
+    labels:
+      release: custom-release
+      environment: dev
+    values:
+      - ./values/custom-chart-values.yaml.gotmpl
+
+  - name: grafana
+    namespace: community-namespace
+    chart: grafana/grafana
+    version: 5.0.0
+    labels:
+      release: grafana
+      environment: prod
+    values:
+      - ./values/grafana-values.yaml.gotmpl
