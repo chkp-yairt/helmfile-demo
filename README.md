@@ -115,7 +115,7 @@ Helmfile offers numerous benefits that make it an excellent choice for managing 
    - Supports labels for selective testing and deployment of specific components
 
 7. **GitOps Compatibility**:
-   - Works seamlessly with GitOps tools like ArgoCD
+   - Works with GitOps tools like ArgoCD
    - Enables automated deployment pipelines based on repository changes
 
 8. **Streamlined Release Management**:
@@ -382,8 +382,8 @@ See the [demo repository](https://github.com/chkp-yairt/helmfile-demo) for a wor
 │       │   ├── custom-values.yaml
 │       │   ├── grafana-values.yaml
 │       │   └── grafana-secrets.yaml
-|       |-- grafana-values.yaml.gotmpl
-|       |-- custom-chart-values.yaml.gotmpl
+|       |── grafana-values.yaml.gotmpl
+|       |──custom-chart-values.yaml.gotmpl
 ```
 Here there are two environment `dev` and `prod`, each of the environments is using the same two helm charts. One of the helm charts is a community chart (in our example it is `grafana`), the other is a custom chart we hold in our `charts` directory so we can change the templates if needed.
 
